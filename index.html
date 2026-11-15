@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffe3ec">
+  <title>For Simran ❤️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,500&family=Poppins:wght@300;400;500&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --rose: #e8648b;
+      --blush: #ffe3ec;
+      --deep: #6b1f3a;
+      --cream: #fff8f5;
+      --white: #fff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--deep);
+      font-family: "Poppins", sans-serif;
+      line-height: 1.8;
+      background: linear-gradient(135deg, #fff8f5, #ffe3ec, #ffd6e5, #fff1f5);
+      background-size: 400% 400%;
+      animation: backgroundShift 14s ease infinite;
+    }
+
+    @keyframes backgroundShift {
+      50% { background-position: 100% 50%; }
+    }
+
+    h1, h2 { font-family: "Playfair Display", serif; }
+    section {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 80px 22px;
+      text-align: center;
+    }
+
+    .script {
+      color: var(--rose);
+      font-family: "Dancing Script", cursive;
+    }
+
+    .shine {
+      color: transparent;
+      background: linear-gradient(90deg, var(--deep), var(--rose), #ffb3c9, var(--rose), var(--deep));
+      background-size: 300%;
+      background-clip: text;
+      -webkit-background-clip: text;
+      animation: shine 5s linear infinite;
+    }
+
+    @keyframes shine { to { background-position: 300%; } }
+
+    /* Welcome screen and music control */
+    #splash {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 24px;
+      text-align: center;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ffe3ec, #ffc2d6);
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+
+    #splash.gone { opacity: 0; visibility: hidden; pointer-events: none; }
+    .sp-heart { font-size: 5rem; animation: heartbeat 1.4s infinite; }
+    #splash p { font-size: 1.15rem; animation: blink 1.6s infinite; }
+    #splash small { opacity: .7; }
+
+    #mute {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 210;
+      width: 46px;
+      height: 46px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,.9);
+      font-size: 1.25rem;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(232,100,139,.4);
+    }
+
+    #bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 190;
+      width: 0;
+      height: 5px;
+      border-radius: 0 5px 5px 0;
+      background: linear-gradient(90deg, #ffb3c9, var(--rose));
+    }
+
+    .hero {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-wrap { position: relative; margin-bottom: 25px; }
+    .photo-wrap img {
+      position: relative;
+      z-index: 2;
+      width: 210px;
+      height: 210px;
+      border: 6px solid var(--white);
+      border-radius: 50%;
+      object-fit: cover;
+      background: var(--blush);
+      box-shadow: 0 10px 35px rgba(232,100,139,.5);
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .photo-wrap::before, .photo-wrap::after {
+      position: absolute;
+      inset: -10px;
+      border: 2px solid var(--rose);
+      border-radius: 50%;
+      content: "";
+      opacity: .6;
+      animation: ping 3s ease-out infinite;
+    }
+    .photo-wrap::after { animation-delay: 1.5s; }
+
+    @keyframes ping {
+      to { transform: scale(1.5); opacity: 0; }
+    }
+    @keyframes float {
+      50% { transform: translateY(-12px); }
+    }
+    .hero h1 { font-size: clamp(2.6rem, 9vw, 4.5rem); }
+    #type { min-height: 3.4em; max-width: 520px; margin-top: 10px; font-size: 1.05rem; }
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      margin-left: 2px;
+      background: var(--rose);
+      animation: blink 1s steps(1) infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+    .scroll { margin-top: 25px; color: var(--rose); font-size: 2rem; animation: bounce 1.6s infinite; }
+    @keyframes bounce { 50% { transform: translateY(12px); } }
+
+    .btn {
+      margin-top: 26px;
+      padding: 14px 34px;
+      border: 0;
+      border-radius: 40px;
+      color: white;
+      background: linear-gradient(135deg, #f58aa9, var(--rose));
+      font: 400 1rem "Poppins", sans-serif;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(232,100,139,.4);
+      transition: transform .3s ease, box-shadow .3s ease;
+      animation: pulse 2.2s infinite;
+    }
+    .btn:hover { transform: scale(1.06); }
+    .btn:active { transform: scale(.96); }
+    @keyframes pulse {
+      50% { box-shadow: 0 8px 34px rgba(232,100,139,.8); }
+    }
+
+    h2 { margin-bottom: 16px; font-size: clamp(1.8rem, 5vw, 2.2rem); }
+    .card {
+      max-width: 640px;
+      margin: 14px auto;
+      padding: 28px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.86);
+      box-shadow: 0 10px 30px rgba(107,31,58,.12);
+      backdrop-filter: blur(6px);
+      transition: transform .35s ease, box-shadow .35s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 40px rgba(232,100,139,.25);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+      gap: 18px;
+      margin-top: 25px;
+    }
+    .gallery figure {
+      padding: 10px 10px 14px;
+      border-radius: 14px;
+      background: white;
+      box-shadow: 0 8px 22px rgba(0,0,0,.14);
+      cursor: pointer;
+      transition: transform .35s ease;
+    }
+    .gallery figure:nth-child(odd) { transform: rotate(-2deg); }
+    .gallery figure:nth-child(even) { transform: rotate(2deg); }
+    .gallery figure:hover { z-index: 5; transform: scale(1.04) rotate(0); }
+    .gallery img {
+      display: block;
+      width: 100%;
+      height: 260px;
+      border-radius: 10px;
+      background: var(--blush);
+      object-fit: cover;
+    }
+    .gallery figcaption {
+      margin-top: 8px;
+      color: var(--rose);
+      font: 1.3rem "Dancing Script", cursive;
+    }
+
+    #lb {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(60,10,30,.88);
+      cursor: zoom-out;
+    }
+    #lb.open { display: flex; }
+    #lb img {
+      max-width: 92vw;
+      max-height: 88vh;
+      border: 6px solid white;
+      border-radius: 16px;
+      object-fit: contain;
+      animation: pop .35s ease;
+    }
+    @keyframes pop {
+      from { transform: scale(.7); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .reasons { display: grid; gap: 14px; margin-top: 20px; }
+    .reasons .card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      max-width: none;
+      margin: 0;
+      text-align: left;
+    }
+    .reasons .ic { font-size: 2rem; animation: heartbeat 1.4s infinite; }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      15% { transform: scale(1.3); }
+      30% { transform: scale(1); }
+      45% { transform: scale(1.2); }
+    }
+    .reasons b { color: var(--rose); }
+
+    .env {
+      position: relative;
+      width: min(260px, 80vw);
+      height: 170px;
+      margin: 30px auto 0;
+      cursor: pointer;
+      transition: transform .4s ease;
+      perspective: 800px;
+    }
+    .env:hover { transform: scale(1.04); }
+    .env .back {
+      position: absolute;
+      inset: 0;
+      border-radius: 10px;
+      background: #f58aa9;
+    }
+    .env .flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 4;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      background: var(--rose);
+      clip-path: polygon(0 0, 100% 0, 50% 60%);
+      transform-origin: top;
+      transition: transform .7s ease;
+    }
+    .env .front {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      border-radius: 10px;
+      background: #ff9fbb;
+      clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 100%, 0 100%);
+    }
+    .env .heartseal {
+      position: absolute;
+      top: 50px;
+      left: 50%;
+      z-index: 5;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      animation: heartbeat 1.4s infinite;
+      transition: opacity .4s ease;
+    }
+    .env.open .flap { z-index: 1; transform: rotateX(180deg); }
+    .env.open .heartseal { opacity: 0; }
+    #letter {
+      max-width: 620px;
+      max-height: 0;
+      margin: 0 auto;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 1.2s ease, opacity 1s ease, margin 1s ease;
+    }
+    #letter.show { max-height: 1000px; margin-top: 30px; opacity: 1; }
+    #letter .card { margin: 0; }
+
+    footer {
+      position: relative;
+      z-index: 2;
+      padding: 50px 20px 90px;
+      text-align: center;
+    }
+    footer .script { font-size: 2.6rem; }
+
+    .fx { position: fixed; z-index: 150; pointer-events: none; user-select: none; }
+    .heart { bottom: -40px; animation: rise linear forwards; }
+    @keyframes rise {
+      to { transform: translateY(-115vh) rotate(40deg); opacity: 0; }
+    }
+    .petal { top: -30px; z-index: 1; animation: fall linear forwards; }
+    @keyframes fall {
+      to { transform: translateY(110vh) translateX(60px) rotate(360deg); }
+    }
+    .spark { animation: sparkle .8s forwards; }
+    @keyframes sparkle {
+      to { transform: translateY(-30px) scale(0); opacity: 0; }
+    }
+
+    .reveal { opacity: 0; transform: translateY(35px) scale(.98); transition: opacity 1s ease, transform 1s ease; }
+    .reveal.show { opacity: 1; transform: none; }
+
+    @media (max-width: 600px) {
+      section { padding: 65px 18px; }
+      .photo-wrap img { width: 180px; height: 180px; }
+      .card { padding: 22px; }
+      .gallery img { height: 230px; }
+      .reasons .card { align-items: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <audio id="song" loop preload="auto" playsinline>
+    <source src="./assets/her.mp3" type="audio/mpeg">
+    Your browser does not support HTML audio.
+  </audio>
+
+  <div id="splash" role="button" tabindex="0" aria-label="Tap to open the website">
+    <div class="sp-heart">💌</div>
+    <h1 class="shine" style="font-size:2.4rem">For Simran</h1>
+    <p>Tap anywhere to open 🎶</p>
+    <small>(turn your volume up a little)</small>
+  </div>
+
+  <button id="mute" type="button" title="Play music" aria-label="Play background music">🔇</button>
+  <div id="bar" aria-hidden="true"></div>
+
+  <div id="lb" aria-label="Close enlarged photo">
+    <img id="lbimg" alt="Enlarged memory">
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="photo-wrap">
+        <img src="./assets/photo-1.jpg" alt="Simran" onerror="this.style.display='none'">
+      </div>
+      <p class="script" style="font-size:1.7rem">hey you…</p>
+      <h1 class="shine">Simran</h1>
+      <p id="type" aria-live="polite"></p>
+      <button class="btn" id="heartButton" type="button">Tap me 💗</button>
+      <div class="scroll" aria-hidden="true">⌄</div>
+    </section>
+
+    <section class="reveal">
+      <h2>Why this website?</h2>
+      <div class="card">
+        <p>
+          Some people make you smile without even trying. Your smile, the easy
+          way you laugh, the way a normal day feels a little softer with you in
+          it. I wanted to tell you that properly, so I built something instead
+          of just typing it in a chat. 🌷
+        </p>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <h2>Little moments of you</h2>
+      <p>Tap any photo. Each one made me stop and smile.</p>
+      <div class="gallery">
+        <figure><img src="./assets/photo-1.jpg" alt="A golden hour memory"><figcaption>Golden hour glow ☀️</figcaption></figure>
+        <figure><img src="./assets/photo-2.jpg" alt="A happy laugh"><figcaption>That happy laugh 😊</figcaption></figure>
+        <figure><img src="./assets/photo-3.jpg" alt="A pretty moment"><figcaption>Pretty in pink 🎀</figcaption></figure>
+        <figure><img src="./assets/photo-4.jpg" alt="A lovely smile"><figcaption>Cutest smile ever</figcaption></figure>
+        <figure><img src="./assets/photo-5.jpg" alt="A mountain view"><figcaption>Mountain views, better you ⛰️</figcaption></figure>
+        <figure><img src="./assets/photo-6.jpg" alt="A sunny memory"><figcaption>Pure sunshine 🌼</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <h2>What I promise you</h2>
+      <p>No dramatic words. Just simple, honest things I'll really try to live up to.</p>
+      <div class="reasons">
+        <div class="card"><span class="ic">💬</span><div><b>I'll be honest.</b> Even when it's the harder thing to say.</div></div>
+        <div class="card"><span class="ic">👂</span><div><b>I'll listen.</b> On your good days, tired days, and overthinking-at-midnight days.</div></div>
+        <div class="card"><span class="ic">🌸</span><div><b>I'll respect you.</b> Your pace, your space, your dreams, your "no" and your "yes".</div></div>
+        <div class="card"><span class="ic">🤝</span><div><b>I'll be there.</b> Trust takes time, and I'm happy to earn it one day at a time.</div></div>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <h2>A little letter for you</h2>
+      <p>Tap the envelope 💌</p>
+      <div class="env" id="env" role="button" tabindex="0" aria-label="Open the letter">
+        <div class="back"></div>
+        <div class="heartseal">💗</div>
+        <div class="flap"></div>
+        <div class="front"></div>
+      </div>
+      <div id="letter">
+        <div class="card">
+          <p class="script" style="font-size:1.9rem">Dear Simran,</p>
+          <p>
+            I don't know exactly where this is going, and that's okay. I just
+            know I really like talking to you, and I'd love to keep getting to
+            know the girl behind that smile. Whatever happens, you'll always
+            have someone in your corner, and you never have to feel alone with
+            your worries.
+          </p>
+          <p class="script" style="font-size:1.6rem;margin-top:12px">
+            Always yours (in friendship, and maybe more 😉),<br>Nitin ❤️
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Made with all my heart, just for you</p>
+    <p class="script shine">by Nitin ❤️</p>
+  </footer>
+
+  <script>
+    "use strict";
+
+    const $ = (selector) => document.querySelector(selector);
+
+    const song = $("#song");
+    const splash = $("#splash");
+    const muteButton = $("#mute");
+    const typeTarget = $("#type");
+
+    let entered = false;
+    let typingStarted = false;
+    let typingTimer = null;
+    const message =
+      "I made this little corner of the internet just for you, because you deserve something made with real thought. 💕";
+
+    function createEffect(className, character, x, y, duration, size) {
+      const element = document.createElement("div");
+      element.className = `fx ${className}`;
+      element.textContent = character;
+      element.style.left = `${x}px`;
+
+      if (y !== null && y !== undefined) {
+        element.style.top = `${y}px`;
+      }
+
+      element.style.animationDuration = `${duration}s`;
+      element.style.fontSize = `${size}px`;
+      document.body.appendChild(element);
+
+      window.setTimeout(() => element.remove(), duration * 1000 + 250);
+    }
+
+    function burst(count) {
+      const characters = ["💗", "💖", "💕", "🌸", "💞"];
+
+      for (let index = 0; index < count; index += 1) {
+        createEffect(
+          "heart",
+          characters[index % characters.length],
+          Math.random() * window.innerWidth,
+          null,
+          3 + Math.random() * 3,
+          16 + Math.random() * 28
+        );
+      }
+    }
+
+    function startTyping() {
+      if (typingStarted) return;
+      typingStarted = true;
+
+      typeTarget.innerHTML = '<span id="tx"></span><span class="cursor">&nbsp;</span>';
+      const textNode = $("#tx");
+      let index = 0;
+
+      function typeNextCharacter() {
+        if (!textNode || index > message.length) return;
+        textNode.textContent = message.slice(0, index);
+        index += 1;
+        typingTimer = window.setTimeout(typeNextCharacter, 45);
+      }
+
+      typeNextCharacter();
+    }
+
+    // MUSIC SETUP
+    // Keep her.mp3 inside the "assets" folder beside this index.html file.
+    song.volume = 0.8;
+
+    song.addEventListener("playing", () => {
+      muteButton.textContent = "🔊";
+      muteButton.setAttribute("aria-label", "Pause background music");
+      muteButton.title = "Pause music";
+    });
+
+    song.addEventListener("pause", () => {
+      muteButton.textContent = "🔇";
+      muteButton.setAttribute("aria-label", "Play background music");
+      muteButton.title = "Play music";
+    });
+
+    song.addEventListener("error", () => {
+      console.error(
+        "The music file could not be loaded. Check that assets/her.mp3 exists, " +
+        "that the filename uses the same capitalisation, and that it is a valid MP3.",
+        song.error
+      );
+    });
+
+    async function playMusic() {
+      try {
+        // play() is called directly from the user's click/tap action.
+        await song.play();
+        return true;
+      } catch (error) {
+        console.error("Music playback failed:", error);
+        muteButton.textContent = "🔇";
+
+        if (error.name === "NotAllowedError") {
+          console.warn("The browser blocked playback. Tap the music button once.");
+        } else if (error.name === "NotSupportedError") {
+          console.warn("The audio format is unsupported or the MP3 file is invalid.");
+        } else {
+          console.warn("Check the audio file path: ./assets/her.mp3");
+        }
+        return false;
+      }
+    }
+
+    async function enterWebsite() {
+      if (entered) return;
+      entered = true;
+
+      // Start playback immediately in the welcome-screen user gesture.
+      const musicStarted = playMusic();
+
+      splash.classList.add("gone");
+      burst(30);
+      startTyping();
+
+      await musicStarted;
+    }
+
+    async function toggleSong(event) {
+      event.stopPropagation();
+
+      if (song.paused) {
+        await playMusic();
+      } else {
+        song.pause();
+      }
+    }
+
+    function openEnvelope() {
+      const envelope = $("#env");
+      const letter = $("#letter");
+      const isOpen = envelope.classList.toggle("open");
+
+      if (isOpen) {
+        letter.classList.add("show");
+        burst(35);
+      } else {
+        letter.classList.remove("show");
+      }
+    }
+
+    function showLightbox(image) {
+      $("#lbimg").src = image.src;
+      $("#lb").classList.add("open");
+    }
+
+    function closeLightbox() {
+      $("#lb").classList.remove("open");
+    }
+
+    function addSparkles(x, y, count = 5) {
+      for (let index = 0; index < count; index += 1) {
+        createEffect(
+          "spark",
+          "💗",
+          x + (Math.random() * 40 - 20),
+          y + (Math.random() * 40 - 20),
+          0.9,
+          18
+        );
+      }
+    }
+
+    // Welcome screen: click, tap, Enter, or Space.
+    splash.addEventListener("click", enterWebsite);
+    splash.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        enterWebsite();
+      }
+    });
+
+    muteButton.addEventListener("click", toggleSong);
+    $("#heartButton").addEventListener("click", () => burst(30));
+
+    // Envelope works with both mouse/touch and keyboard.
+    $("#env").addEventListener("click", openEnvelope);
+    $("#env").addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openEnvelope();
+      }
+    });
+
+    // Gallery lightbox.
+    document.querySelectorAll(".gallery img").forEach((image) => {
+      image.addEventListener("click", () => showLightbox(image));
+    });
+    $("#lb").addEventListener("click", closeLightbox);
+    $("#lbimg").addEventListener("click", (event) => event.stopPropagation());
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeLightbox();
+    });
+
+    // Decorative click and pointer effects.
+    document.addEventListener("click", (event) => {
+      if (!event.target.closest("#mute, #splash, .gallery, #env")) {
+        addSparkles(event.clientX, event.clientY, 5);
+      }
+    });
+
+    document.addEventListener("mousemove", (event) => {
+      if (Math.random() < 0.25) {
+        createEffect("spark", "✨", event.clientX, event.clientY, 0.8, 14);
+      }
+    });
+
+    document.addEventListener("touchmove", (event) => {
+      const touch = event.touches[0];
+      if (touch && Math.random() < 0.35) {
+        createEffect("spark", "✨", touch.clientX, touch.clientY, 0.8, 14);
+      }
+    }, { passive: true });
+
+    // Falling petals.
+    window.setInterval(() => {
+      createEffect(
+        "petal",
+        "🌸",
+        Math.random() * window.innerWidth,
+        null,
+        7 + Math.random() * 5,
+        14 + Math.random() * 12
+      );
+    }, 1100);
+
+    // Reading progress bar.
+    function updateProgress() {
+      const scrollableHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollableHeight > 0
+        ? (window.scrollY / scrollableHeight) * 100
+        : 0;
+
+      $("#bar").style.width = `${Math.min(100, Math.max(0, progress))}%`;
+    }
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress);
+    updateProgress();
+
+    // Reveal sections as they enter the viewport.
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll(".reveal").forEach((element) => {
+        observer.observe(element);
+      });
+    } else {
+      document.querySelectorAll(".reveal").forEach((element) => {
+        element.classList.add("show");
+      });
+    }
+
+    // Pause music when the visitor switches tabs; resume only if it was playing.
+    document.addEventListener("visibilitychange", async () => {
+      if (!entered) return;
+
+      if (document.hidden) {
+        if (!song.paused) {
+          song.dataset.wasPlaying = "true";
+          song.pause();
+        }
+      } else if (song.dataset.wasPlaying === "true") {
+        delete song.dataset.wasPlaying;
+        try {
+          await song.play();
+          muteButton.textContent = "🔊";
+        } catch (error) {
+          muteButton.textContent = "🔇";
+        }
+      }
+    });
+  </script>
+</body>
+</html>
